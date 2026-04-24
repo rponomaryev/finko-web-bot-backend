@@ -19,7 +19,10 @@ from app.utils.security import verify_bearer_token
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    init_db()
+    try:
+        init_db()
+    except Exception as exc:
+        print(f"SQLite init skipped: {exc}")
     yield
 
 
